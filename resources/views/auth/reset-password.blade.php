@@ -16,7 +16,13 @@
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            @if ($errors->has('password'))
+                @foreach ($errors->get('password') as $error)
+                    <div style="background-color: #FED7D7; border: 1px solid #FEB2B2; color: #C53030; padding: 0.5rem; border-radius: 0.375rem; margin-top: 0.5rem;">
+                        <span style="cursor: pointer;" onclick="this.parentElement.style.display='none';">x</span> {{ $error }}
+                    </div>
+                @endforeach
+            @endif
         </div>
 
         <!-- Confirm Password -->
