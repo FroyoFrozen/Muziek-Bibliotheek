@@ -1,0 +1,15 @@
+.CreateButton {
+    height: 2.8em;
+    width: 9em;
+    border: 2px solid #016dd9;
+    background: #77afe8;
+    color: #064e98;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.CreateButton:hover {
+    background: #016dd9;
+    color: #ffffff;
+}
+
