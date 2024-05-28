@@ -18,8 +18,9 @@
             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             @if ($errors->has('password'))
                 @foreach ($errors->get('password') as $error)
-                    <div style="background-color: #FED7D7; border: 1px solid #FEB2B2; color: #C53030; padding: 0.5rem; border-radius: 0.375rem; margin-top: 0.5rem;">
-                        <span style="cursor: pointer;" onclick="this.parentElement.style.display='none';">x</span> {{ $error }}
+                    <div class="bg-red-500 text-white p-2 rounded mt-1 flex justify-between items-center" role="alert">
+                        <span>{{ $error }}</span>
+                        <button type="button" class="ml-4" onclick="this.parentElement.style.display='none';">✕</button>
                     </div>
                 @endforeach
             @endif

@@ -22,7 +22,14 @@
         <div>
             <x-input-label for="update_password_password" :value="__('New Password')" />
             <x-text-input id="update_password_password" name="password" type="password" class="mt-1 block w-full" autocomplete="new-password" />
-            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+            @if ($errors->has('password'))
+                @foreach ($errors->get('password') as $error)
+                    <div class="bg-red-500 text-white p-2 rounded mt-1 flex justify-between items-center" role="alert">
+                        <span>{{ $error }}</span>
+                        <button type="button" class="ml-4" onclick="this.parentElement.style.display='none';">✕</button>
+                    </div>
+                @endforeach
+            @endif
         </div>
 
         <div>

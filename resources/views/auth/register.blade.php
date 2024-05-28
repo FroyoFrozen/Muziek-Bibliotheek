@@ -25,13 +25,10 @@
                           name="password"
                           required autocomplete="new-password" />
 
-            @if ($errors->has('password'))
-                @foreach ($errors->get('password') as $error)
-                    <div style="background-color: #FED7D7; border: 1px solid #FEB2B2; color: #C53030; padding: 0.5rem; border-radius: 0.375rem; margin-top: 0.5rem;">
-                        <span style="cursor: pointer;" onclick="this.parentElement.style.display='none';">x</span> {{ $error }}
-                    </div>
-                @endforeach
-            @endif
+            <div id="passwordRestrictions" class="mt-2 text-sm"></div>
+
+            <!-- Input errors -->
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
@@ -56,3 +53,48 @@
         </div>
     </form>
 </x-guest-layout>
+
+<script>
+    const passwordInput = document.getElementById('password');
+    const passwordRestrictions = document.getElementById('passwordRestrictions');
+
+    // Voeg een eventlistener toe voor input op het wachtwoordveld
+    passwordInput.addEventListener('input', function() {
+        const password = this.value;
+
+        // Voer hier je wachtwoordrestricties uit en update de weergegeven tekst en kleur dienovereenkomstig
+        const restrictions = [];
+
+        // Voorbeeld restricties: minimaal 10 tekens
+        if (password.length < 10) {
+            restrictions.push('Minimaal 10 tekens');
+        }
+
+        // Voorbeeld restricties: minimaal 1 hoofdletter
+        if (!/[A-Z]/.test(password)) {
+            restrictions.push('Minimaal 1 hoofdletter');
+        }
+
+        // Voorbeeld restricties: minimaal 1 kleine letter
+        if (!/[a-z]/.test(password)) {
+            restrictions.push('Minimaal 1 kleine letter');
+        }
+
+        // Voorbeeld restricties: minimaal 1 cijfer
+        if (!/\d/.test(password)) {
+            restrictions.push('Minimaal 1 cijfer');
+        }
+
+        // Voorbeeld restricties: minimaal 1 speciaal teken
+        if (!/[\W_]/.test(password)) {
+            restrictions.push('Minimaal 1 speciaal teken');
+        }
+
+        // Update de weergegeven tekst en kleur
+        if (restrictions.length > 0) {
+            passwordRestrictions.innerHTML = restrictions.map(restriction => `<div class="text-red-600">${restriction}</div>`).join('');
+        } else {
+            passwordRestrictions.innerHTML = '<div class="text-green-600">Wachtwoord voldoet aan de vereisten</div>';
+        }
+    });
+</script>

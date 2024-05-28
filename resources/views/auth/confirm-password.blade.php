@@ -15,7 +15,14 @@
                             name="password"
                             required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            @if ($errors->has('password'))
+                @foreach ($errors->get('password') as $error)
+                    <div class="bg-red-500 text-white p-2 rounded mt-1 flex justify-between items-center" role="alert">
+                        <span>{{ $error }}</span>
+                        <button type="button" class="ml-4" onclick="this.parentElement.style.display='none';">✕</button>
+                    </div>
+                @endforeach
+            @endif
         </div>
 
         <div class="flex justify-end mt-4">
