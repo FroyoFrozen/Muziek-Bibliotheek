@@ -22,7 +22,14 @@
         <div>
             <x-input-label for="update_password_password" :value="__('New Password')" />
             <x-text-input id="update_password_password" name="password" type="password" class="mt-1 block w-full" autocomplete="new-password" />
-            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+            @if ($errors->has('password'))
+                @foreach ($errors->get('password') as $error)
+                    <div class="bg-red-500 text-white p-2 rounded mt-1 flex justify-between items-center" role="alert">
+                        <span>{{ $error }}</span>
+                        <button type="button" class="ml-4" onclick="this.parentElement.style.display='none';">✕</button>
+                    </div>
+                @endforeach
+            @endif
         </div>
 
         <div>
@@ -35,13 +42,10 @@
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
             @if (session('status') === 'password-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400"
-                >{{ __('Saved.') }}</p>
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Success!</strong>
+                    <span class="block sm:inline">Your password has been updated.</span>
+                </div>
             @endif
         </div>
     </form>

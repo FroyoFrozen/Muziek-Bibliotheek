@@ -30,5 +30,6 @@ class ArtiestController extends Controller
 
         // Redirect terug naar de pagina met de artiestenlijst
         return redirect()->route('mijnArtiesten')->with('success', 'Artiest succesvol toegevoegd!');
+
     }
 }
