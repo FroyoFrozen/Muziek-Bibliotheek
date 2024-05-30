@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\ArtiestController;
+use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
@@ -22,13 +23,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
     Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.create');
     Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
+    Route::get('/albums/{album}', [AlbumController::class, 'show'])->name('albums.show');
 });
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/mijnArtiesten', [ArtiestController::class, 'index'])->name('mijnArtiesten');
-    Route::post('/artiesten', [ArtiestController::class, 'store'])->name('artiesten.store');
+    Route::get('/myArtists', [ArtistController::class, 'index'])->name('myArtists');
+    Route::post('/artists', [ArtistController::class, 'store'])->name('artists.store');
+    Route::get('/artists/{artist}', [ArtistController::class, 'show'])->name('artists.show'); // Added
 });
-
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');

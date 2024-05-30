@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Artiest extends Model
+class Artist extends Model
 {
     use HasFactory;
 
-    protected $table = 'artiesten';
+    protected $table = 'artists';
 
-    protected $fillable = ['naam'];
+    protected $fillable = ['name'];
 
     public function albums()
     {
         return $this->hasMany(Album::class);
     }
 }
-
-

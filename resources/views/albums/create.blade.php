@@ -1,20 +1,23 @@
 <x-app-layout>
     <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h2 class="text-2xl font-semibold mb-4">Nieuw Album Toevoegen</h2>
+        <div class="px-4">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 ">
+                    <h2 class="text-2xl font-semibold mb-4">Add New Album</h2>
                     <form id="albumForm" method="POST" action="{{ route('albums.store') }}">
                         @csrf
                         <div class="mb-4">
-                            <label for="titel" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Titel</label>
-                            <input type="text" name="titel" id="titel" class="form-input w-full" required>
+                            <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+                            <input type="text" name="title" id="title" class="form-input w-full" required>
+                            @error('title')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="mb-4">
-                            <label for="artiest_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Artiest</label>
-                            <select name="artiest_id" id="artiest_id" class="form-select w-full" required>
-                                @foreach(App\Models\Artiest::all() as $artiest)
-                                    <option value="{{ $artiest->id }}">{{ $artiest->naam }}</option>
+                            <label for="artist_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Artist</label>
+                            <select name="artist_id" id="artist_id" class="form-select w-full" required>
+                                @foreach(App\Models\Artist::all() as $artist)
+                                    <option value="{{ $artist->id }}">{{ $artist->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -22,24 +25,23 @@
                             <label for="genre_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Genre</label>
                             <select name="genre_id" id="genre_id" class="form-select w-full" required>
                                 @foreach($genres as $genre)
-                                    <option value="{{ $genre->id }}">{{ $genre->naam }}</option>
+                                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="jaar_van_uitgave" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Jaar van uitgave</label>
+                            <label for="release_year" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Release Year</label>
                             <div class="flex items-center">
-                                <input type="range" name="jaar_van_uitgave" id="jaar_van_uitgave" class="form-range rounded-md shadow-sm w-full mr-2" min="1900" max="{{ date('Y') }}" value="{{ date('Y') }}">
-                                <input type="number" name="jaar_van_uitgave_input" id="jaar_van_uitgave_input" class="form-input w-20 text-center" min="1900" max="{{ date('Y') }}" value="{{ date('Y') }}">
+                                <input type="range" name="release_year" id="release_year" class="form-range rounded-md shadow-sm w-full mr-2" min="1900" max="{{ date('Y') }}" value="{{ date('Y') }}">
+                                <input type="number" name="release_year_input" id="release_year_input" class="form-input w-20 text-center" min="1900" max="{{ date('Y') }}" value="{{ date('Y') }}">
                             </div>
-                            <p id="jaar_van_uitgave_error" class="text-red-500 text-xs hidden">Voer een geldig jaartal in (1900 - {{ date('Y') }}).</p>
-
+                            <p id="release_year_error" class="text-red-500 text-xs hidden">Enter a valid year (1900 - {{ date('Y') }}).</p>
                         </div>
                         <div class="mb-4">
-                            <label for="aantal_nummers" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Aantal nummers</label>
-                            <input type="number" name="aantal_nummers" id="aantal_nummers" class="form-input w-full" min="0">
+                            <label for="number_of_tracks" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Number of Tracks</label>
+                            <input type="number" name="number_of_tracks" id="number_of_tracks" class="form-input w-full" min="0">
                         </div>
-                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200">Album Toevoegen</button>
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200">Add Album</button>
                     </form>
                 </div>
             </div>
@@ -49,33 +51,33 @@
 
 <script>
     const albumForm = document.getElementById('albumForm');
-    const jaarVanUitgaveSlider = document.getElementById('jaar_van_uitgave');
-    const jaarVanUitgaveInput = document.getElementById('jaar_van_uitgave_input');
-    const jaarVanUitgaveError = document.getElementById('jaar_van_uitgave_error');
+    const releaseYearSlider = document.getElementById('release_year');
+    const releaseYearInput = document.getElementById('release_year_input');
+    const releaseYearError = document.getElementById('release_year_error');
 
-    jaarVanUitgaveInput.addEventListener('input', function() {
-        jaarVanUitgaveSlider.value = this.value;
-        validateJaarVanUitgave(this.value);
+    releaseYearInput.addEventListener('input', function () {
+        releaseYearSlider.value = this.value;
+        validateReleaseYear(this.value);
     });
 
-    jaarVanUitgaveSlider.addEventListener('input', function() {
-        jaarVanUitgaveInput.value = this.value;
-        validateJaarVanUitgave(this.value);
+    releaseYearSlider.addEventListener('input', function () {
+        releaseYearInput.value = this.value;
+        validateReleaseYear(this.value);
     });
 
-    albumForm.addEventListener('submit', function(event) {
-        const jaarVanUitgaveValue = jaarVanUitgaveSlider.value;
-        if (!validateJaarVanUitgave(jaarVanUitgaveValue)) {
+    albumForm.addEventListener('submit', function (event) {
+        const releaseYearValue = releaseYearSlider.value;
+        if (!validateReleaseYear(releaseYearValue)) {
             event.preventDefault();
         }
     });
 
-    function validateJaarVanUitgave(value) {
+    function validateReleaseYear(value) {
         if (value < 1900 || value > new Date().getFullYear()) {
-            jaarVanUitgaveError.classList.remove('hidden');
+            releaseYearError.classList.remove('hidden');
             return false;
         } else {
-            jaarVanUitgaveError.classList.add('hidden');
+            releaseYearError.classList.add('hidden');
             return true;
         }
     }

@@ -62,10 +62,10 @@
         <img src="/images/Vinyl.png" alt="Vinyl Record">
     </div>
     <h1>404</h1>
-    <h2>Pagina niet gevonden</h2>
-    <p>Deze pagina zit niet in je collectie...</p>
+    <h2>Page not found</h2>
+    <p>This page is not in your collection</p>
     <div>
-        <a href="javascript:history.back()" class="button">Ga Terug</a>
+        <a href="{{ route('dashboard') }}" class="button">Go to Dashboard</a>
     </div>
 </div>
 </body>

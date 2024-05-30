@@ -11,8 +11,8 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('mijnArtiesten')" :active="request()->routeIs('mijnArtiesten')">
-                        {{ __('MijnArtiesten') }}
+                    <x-nav-link :href="route('myArtists')" :active="request()->routeIs('myArtists')">
+                        {{ __('MyArtists') }}
                     </x-nav-link>
                 </div>
             </div>
