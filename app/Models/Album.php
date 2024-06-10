@@ -12,27 +12,27 @@ class Album extends Model
     protected $table = 'albums';
 
     protected $fillable = [
-        'titel',
-        'artiest_id',
+        'title',
+        'artist_id',
         'genre_id',
-        'jaar_van_uitgave',
-        'aantal_nummers',
+        'release_year',
+        'number_of_tracks',
     ];
 
-    public function artiest()
+    public function artist()
     {
-        return $this->belongsTo(Artiest::class);
+        return $this->belongsTo(Artist::class, 'artist_id');
     }
 
     public function genre()
     {
-        return $this->belongsTo(Genre::class);
+        return $this->belongsTo(Genre::class, 'genre_id');
     }
-
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 }
+
 

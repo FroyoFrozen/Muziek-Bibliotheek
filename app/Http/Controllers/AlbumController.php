@@ -15,6 +15,17 @@ class AlbumController extends Controller
         return view('albums.index', compact('albums'));
     }
 
+    public function show(Album $album)
+    {
+        // Breadcrumb for the dashboard page
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => route('dashboard')],
+            ['label' => $album->title],
+        ];
+
+        return view('albums.show', compact('album', 'breadcrumbs'));
+    }
+
     public function create()
     {
         $genres = Genre::all();
@@ -25,11 +36,11 @@ class AlbumController extends Controller
     {
         Log::info($request->all());
         $request->validate([
-            'titel' => 'required|string|max:255',
-            'artiest_id' => 'required|integer|exists:artiesten,id',
+            'title' => 'required|string|max:255',
+            'artist_id' => 'required|integer|exists:artists,id',
             'genre_id' => 'required|integer|exists:genres,id',
-            'jaar_van_uitgave' => 'nullable|integer',
-            'aantal_nummers' => 'nullable|integer',
+            'release_year' => 'nullable|integer',
+            'number_of_tracks' => 'nullable|integer',
         ]);
 
         $album = new Album($request->all());
@@ -39,4 +50,3 @@ class AlbumController extends Controller
         return redirect()->route('dashboard');
     }
 }
-

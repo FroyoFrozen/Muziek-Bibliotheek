@@ -52,13 +52,14 @@
 <body>
 <div class="container">
     <div class="vinyl">
-        <img src="/images/broken-vinyl.png" alt="Gebroken Vinylplaat">
+        <img src="/images/broken-vinyl.png" alt="Broken Vinyl Record">
     </div>
     <h1>500</h1>
-    <h2>Serverfout</h2>
-    <p>Oeps! Er lijkt iets mis te zijn gegaan op onze server.</p>
+    <h2>Server Error</h2>
+    <p>Oops! Something seems to have gone wrong on our server.</p>
     <div>
-        <a href="javascript:history.back()" class="button">Ga Terug</a>
+        <a href="javascript:history.back()" class="button">Go Back</a>
+        <a href="{{ route('dashboard') }}" class="button">Dashboard</a>
     </div>
 </div>
 </body>

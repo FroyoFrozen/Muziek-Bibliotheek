@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMuziekcollectieTables extends Migration
+class CreateMusicCollectionTables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,32 @@ class CreateMuziekcollectieTables extends Migration
      */
     public function up()
     {
-        Schema::create('artiesten', function (Blueprint $table) {
+        Schema::create('artists', function (Blueprint $table) {
             $table->id();
-            $table->string('naam');
+            $table->string('name');
+            $table->text('bio')->nullable();
+            $table->string('genre')->nullable();
+            $table->string('website')->nullable();
+            $table->text('awards')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
             $table->timestamps();
         });
 
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
-            $table->string('naam');
+            $table->string('name');
             $table->timestamps();
         });
 
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->string('titel');
-            $table->foreignId('artiest_id')->constrained('artiesten');
+            $table->string('title');
+            $table->foreignId('artist_id')->constrained('artists');
             $table->foreignId('genre_id')->constrained('genres');
-            $table->year('jaar_van_uitgave')->nullable();
-            $table->integer('aantal_nummers')->nullable();
+            $table->year('release_year')->nullable();
+            $table->integer('number_of_tracks')->nullable();
             $table->timestamps();
         });
     }
@@ -45,6 +52,6 @@ class CreateMuziekcollectieTables extends Migration
     {
         Schema::dropIfExists('albums');
         Schema::dropIfExists('genres');
-        Schema::dropIfExists('artiesten');
+        Schema::dropIfExists('artists');
     }
 }

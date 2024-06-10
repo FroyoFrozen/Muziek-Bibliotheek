@@ -31,10 +31,9 @@ class User extends Authenticatable
         return $this->hasMany(Album::class);
     }
 
-    // Definieer de relatie met artiesten
-    public function artiesten()
+    // Define the relationship with artists
+    public function artists()
     {
-        return $this->hasMany(Artiest::class);
+        return $this->hasMany(Artist::class);
     }
 }
-
