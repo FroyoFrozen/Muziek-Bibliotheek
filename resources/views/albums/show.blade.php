@@ -25,8 +25,17 @@
 
                             <!-- Button to save rating -->
                             <div class="mt-4">
-                                <button type="button" onclick="saveRating()" class=" inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200
-                                ">Save Rating</button>
+                                <button type="button" onclick="saveRating()" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200">Save Rating</button>
+                            </div>
+
+                            <!-- Edit and Delete buttons -->
+                            <div class="mt-4">
+                                <a href="{{ route('albums.edit', $album) }}" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-white hover:bg-green-700 focus:outline-none focus:border-green-700 focus:ring focus:ring-green-200 mr-2">Edit</a>
+                                <form action="{{ route('albums.destroy', $album) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this album?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-white hover:bg-red-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200">Delete</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -46,8 +55,6 @@
 
     function saveRating() {
         const rating = ratingSlider.value;
-
-        // Here you can save the rating to the database or perform other actions
         alert('Rating saved: ' + rating);
     }
 </script>
