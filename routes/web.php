@@ -21,11 +21,14 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
     Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.create');
     Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
     Route::get('/albums/{album}', [AlbumController::class, 'show'])->name('albums.show');
+    Route::get('/albums/{album}/edit', [AlbumController::class, 'edit'])->name('albums.edit'); // Added edit route
+    Route::put('/albums/{album}', [AlbumController::class, 'update'])->name('albums.update'); // Added update route
+    Route::delete('/albums/{album}', [AlbumController::class, 'destroy'])->name('albums.destroy'); // Added destroy route
 });
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/myArtists', [ArtistController::class, 'index'])->name('myArtists');
