@@ -22,6 +22,7 @@ class AlbumController extends Controller
             ['label' => 'Dashboard', 'url' => route('dashboard')],
             ['label' => $album->title],
         ];
+
         return view('albums.show', compact('album', 'breadcrumbs'));
     }
 

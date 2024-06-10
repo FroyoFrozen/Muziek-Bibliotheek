@@ -49,4 +49,40 @@ class ArtistController extends Controller
         // Redirect back to the page with the list of artists
         return redirect()->route('myArtists')->with('success', 'Artist successfully added!');
     }
+
+    public function edit(Artist $artist)
+    {
+        // Breadcrumb for the edit page
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => route('dashboard')],
+            ['label' => 'My Artists', 'url' => route('myArtists')],
+            ['label' => $artist->name, 'url' => route('artists.show', $artist->id)],
+            ['label' => 'Edit'],
+        ];
+
+        return view('artist.edit', compact('artist', 'breadcrumbs'));
+    }
+
+    public function update(Request $request, Artist $artist)
+    {
+        // Validate the form
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'bio' => 'nullable|string',
+            'genre' => 'nullable|string|max:255',
+            'birth_date' => 'nullable|date',
+            'website' => 'nullable|url|max:255',
+            'awards' => 'nullable|string',
+            'facebook' => 'nullable|url|max:255',
+            'twitter' => 'nullable|url|max:255',
+            'instagram' => 'nullable|url|max:255',
+        ]);
+
+        // Update the artist with the validated data
+        $artist->update($validated);
+
+        // Redirect back to the artist's show page with success message
+        return redirect()->route('artists.show', $artist->id)->with('success', 'Artist updated successfully');
+    }
 }
+

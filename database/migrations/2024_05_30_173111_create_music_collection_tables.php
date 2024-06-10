@@ -16,6 +16,13 @@ class CreateMusicCollectionTables extends Migration
         Schema::create('artists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('bio')->nullable();
+            $table->string('genre')->nullable();
+            $table->string('website')->nullable();
+            $table->text('awards')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
             $table->timestamps();
         });
 

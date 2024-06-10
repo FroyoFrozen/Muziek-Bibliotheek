@@ -11,10 +11,20 @@ class Artist extends Model
 
     protected $table = 'artists';
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'bio',
+        'genre',
+        'website',
+        'awards',
+        'facebook',
+        'twitter',
+        'instagram'
+    ];
 
     public function albums()
     {
         return $this->hasMany(Album::class);
     }
 }
+
